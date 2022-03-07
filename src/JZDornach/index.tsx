@@ -3,12 +3,13 @@ import { Title } from "./Title"
 import { Yeartext } from "./Yeartext"
 import { Message } from "./Message"
 import {
-  useVideoConfig,
+  Audio,
+  Easing,
   Img,
   Sequence,
-  useCurrentFrame,
   interpolate,
-  Easing,
+  useCurrentFrame,
+  useVideoConfig,
 } from "remotion"
 import kingdomHall from "./kingdom-hall.jpg"
 import "./style.css"
@@ -16,23 +17,19 @@ import "./style.css"
 export const JZDornach: React.FC = () => {
   const frame = useCurrentFrame()
   const { width, durationInFrames, fps } = useVideoConfig()
-  const zoomScale = interpolate(frame, [0, durationInFrames], [1.2, 1.0])
-  const fadeToBlackOpacity = interpolate(
-    frame,
-    [durationInFrames - 20, durationInFrames],
-    [0, 1],
-    {
-      easing: Easing.out(Easing.quad),
-    }
-  )
-  const fadeInOpacity = interpolate(frame, [0, 10], [0, 1])
 
   return (
     <div className="flex-1 h-full text-gray-800 bg-blue-jw">
       <Img
         src={kingdomHall}
         className="absolute z-0"
-        style={{ transform: `scale(${zoomScale})` }}
+        style={{
+          transform: `scale(${interpolate(
+            frame,
+            [0, durationInFrames],
+            [1.2, 1.0]
+          )})`,
+        }}
       />
 
       <div
@@ -44,7 +41,7 @@ export const JZDornach: React.FC = () => {
       >
         <div
           className="z-10 flex flex-col justify-between h-full p-16 pb-24"
-          style={{ opacity: fadeInOpacity }}
+          style={{ opacity: interpolate(frame, [0, 10], [0, 1]) }}
         >
           <Title>
             Versammlung
@@ -82,7 +79,16 @@ export const JZDornach: React.FC = () => {
 
       <div
         className="absolute z-50 w-full h-full bg-black"
-        style={{ opacity: fadeToBlackOpacity }}
+        style={{
+          opacity: interpolate(
+            frame,
+            [durationInFrames - 20, durationInFrames],
+            [0, 1],
+            {
+              easing: Easing.out(Easing.quad),
+            }
+          ),
+        }}
       ></div>
     </div>
   )
