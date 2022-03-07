@@ -1,20 +1,18 @@
-import { Composition } from 'remotion'
-import { MyComposition } from './Composition'
+import { Composition } from "remotion"
+import { JZDornach } from "./JZDornach"
 
 const fps = 30
-const durationInFrames = fps * 60
+const durationInSeconds = 60
 
 export const RemotionVideo: React.FC = () => {
   return (
-    <>
-      <Composition
-        id='JZ-Dornach'
-        component={MyComposition}
-        durationInFrames={durationInFrames}
-        fps={fps}
-        width={1280}
-        height={720}
-      />
-    </>
+    <Composition
+      id="JZ-Dornach"
+      component={JZDornach}
+      durationInFrames={fps * durationInSeconds}
+      fps={fps}
+      width={1280}
+      height={720}
+    />
   )
 }
