@@ -32,6 +32,14 @@ export const JZDornach: React.FC = () => {
         }}
       />
 
+      <Audio
+        src="https://download-a.akamaihd.net/files/media_publication/9c/sjjm_X_068.mp3"
+        startFrom={fps * 62}
+        volume={interpolate(frame, [0, 30], [0, 1], {
+          extrapolateLeft: "clamp",
+        })}
+      />
+
       <div
         className="absolute h-full"
         style={{
